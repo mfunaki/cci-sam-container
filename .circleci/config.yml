@@ -21,5 +21,7 @@ jobs:
 workflowss:
   main:
     jobs:
-      - create_repo
+      - create_repo:
+          context: aws, docker
       - aws-ecr/build-and-push-image:
+          context: aws, docker
