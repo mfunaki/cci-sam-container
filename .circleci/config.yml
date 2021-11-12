@@ -40,6 +40,8 @@ jobs:
       - image: 709967797311.dkr.ecr.us-east-1.amazonaws.com/node_with_sam_cli/node_with_sam_cli:latest
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           command: echo hello world
 
@@ -61,5 +63,6 @@ workflows:
           requires:
             - install_aws_cli
       - hello:
+          context: aws
           requires:
             - prepare_work_image
