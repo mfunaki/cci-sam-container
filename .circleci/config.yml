@@ -37,7 +37,7 @@ jobs:
           repo: node_with_sam_cli
   hello:
     docker:
-      - image: 709967797311.dkr.ecr.us-east-1.amazonaws.com/node_with_sam_cli/node_with_sam_cli:latest
+      - image: 709967797311.dkr.ecr.us-east-1.amazonaws.com/node_with_sam_cli:latest
     steps:
       - checkout
       - attach_workspace:
