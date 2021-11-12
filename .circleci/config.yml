@@ -5,12 +5,12 @@ orbs:
 
 jobs:
   create_repo:
-    executor: defaulut
+    executor: default
     steps:
       - aws-ecr/create-repo:
           repo: money_exchange
   prepare_work_image:
-    executor: defaulut
+    executor: default
     steps:
       - aws-ecr/build-and-push-image:
           create-repo: true
@@ -23,5 +23,5 @@ workflows:
     jobs:
       - create_repo:
           context: aws, docker
-      - aws-ecr/build-and-push-image:
+      - build-and-push-image:
           context: aws, docker
