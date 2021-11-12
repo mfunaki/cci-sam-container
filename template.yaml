@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Money exchange container image
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  MoneyExchangeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        MoneyExchange:
+          Type: Api
+          Properties:
+            Path: /api
+            Method: get
+    Metadata:
+      DockerTag: nodejs14.x-v1
+      DockerContext: ./money-exchange
+      Dockerfile: Dockerfile
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  MoneyExchangeApi:
+    Description: "API Gateway endpoint URL for Prod stage for Money Change function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/"
+  MoneyExchangeFunction:
+    Description: "Money Exchange Lambda Function ARN"
+    Value: !GetAtt MoneyExchangeFunction.Arn
+  MoneyExchangeFunctionIamRole:
+    Description: "Implicit IAM Role created for Money Change function"
+    Value: !GetAtt MoneyExchangeFunctionRole.Arn
