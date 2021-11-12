@@ -8,7 +8,7 @@ RUN cd ~/ \
     && rm -rf awscli-bundle awscli-bundle.zip
 RUN cd ~/ \
     && curl "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip" -o "aws-sam-cli-linux.zip" \
-    && unzip aws-sam-cli-linux.zip \
+    && unzip aws-sam-cli-linux.zip -d sam-installation \
     && sudo ./sam-installation/install \
     && rm -rf sam-installation aws-sam-cli-linux.zip
 
