@@ -1,0 +1,25 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@7.2.0
+
+jobs:
+  create_repo:
+    executor: defaulut
+    steps:
+      - aws-ecr/create-repo:
+          repo: money_exchange
+  prepare_work_image:
+    executor: defaulut
+    steps:
+      - aws-ecr/build-and-push-image:
+          create-repo: true
+          dockerfile: ~/.circleci/Dockerfile
+          remote-docker-layer-caching: true
+          repo: node_with_sam_cli
+
+workflowss:
+  main:
+    jobs:
+      - create_repo
+      - aws-ecr/build-and-push-image:
