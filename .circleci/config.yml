@@ -33,6 +33,13 @@ jobs:
           path: ./.circleci
           remote-docker-layer-caching: true
           repo: node_with_sam_cli
+  hello:
+    docker:
+      - image: node_with_sam_cli:latest
+    steps:
+      - checkout
+      - run:
+          command: echo hello world
 
 workflows:
   main:
@@ -51,3 +58,6 @@ workflows:
             - docker
           requires:
             - install_aws_cli
+      - hello:
+          requires:
+            - prepare_work_image
