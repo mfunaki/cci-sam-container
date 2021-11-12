@@ -18,7 +18,7 @@ jobs:
           remote-docker-layer-caching: true
           repo: node_with_sam_cli
 
-workflowss:
+workflows:
   main:
     jobs:
       - create_repo:
