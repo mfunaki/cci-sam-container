@@ -23,5 +23,5 @@ workflows:
     jobs:
       - create_repo:
           context: aws, docker
-      - build-and-push-image:
+      - prepare_work_image:
           context: aws, docker
