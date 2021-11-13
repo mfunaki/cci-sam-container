@@ -49,19 +49,10 @@ jobs:
       - attach_workspace:
           at: ~/
       - aws-sam/install
-      - restore_cache:
-          keys:
-            - v1-npm-{{ checksum "./money-exchange/package-lock.json" }}-{{ .Branch }}
       - run:
           command: |
             cd ./money-exchange
             npm install
-      - store_artifacts:
-          path: ./money-exchange/package-lock.json
-      - save_cache:
-          key: v1-npm-{{ checksum "./money-exchange/package-lock.json" }}-{{ .Branch }}
-          paths:
-            - ./money-exchange/node_modules
       - setup_remote_docker:
           docker_layer_caching: true
       - aws-sam/build:
@@ -71,6 +62,7 @@ jobs:
           root: ~/
           paths:
             - project/.aws-sam
+            - project/money-exchange/node_modules
 
 workflows:
   preparation:
