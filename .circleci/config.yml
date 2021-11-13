@@ -53,6 +53,7 @@ jobs:
             - v1-npm-{{ .Branch }}-{{ checksum "./money-exchange/package-lock.json" }}
       - run:
           command: |
+            cd ./money-exchange
             npm install
       - save_cache:
           key: v1-npm-{{ .Branch }}-{{ checksum "./money-exchange/package-lock.json" }}
