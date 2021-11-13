@@ -52,7 +52,6 @@ jobs:
   
 
 workflows:
-  version: 2
   preparation:
     when: << pipeline.parameters.update-work-image >>
     jobs:
@@ -71,6 +70,8 @@ workflows:
           requires:
             - install_aws_cli
   main:
+    when:
+      not: << pipeline.parameters.update-work-image >>
     jobs:
       - install_aws_cli:
           context: aws
