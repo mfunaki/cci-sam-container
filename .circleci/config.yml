@@ -64,17 +64,17 @@ workflows:
             - docker
           requires:
             - install_aws_cli
-  main:
-    jobs:
-      - install_aws_cli:
-          context: aws
       - create_repo:
           context: 
             - aws
             - docker
           requires:
             - install_aws_cli
+  main:
+    jobs:
+      - install_aws_cli:
+          context: aws
       - hello:
           context: aws
           requires:
-            - prepare_work_image
+            - install_aws_cli
