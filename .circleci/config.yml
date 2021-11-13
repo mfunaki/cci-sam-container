@@ -8,6 +8,7 @@ parameters:
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
   aws-ecr: circleci/aws-ecr@7.2.0
+  aws-sam: circleci/aws-sam-serverless@3.1.0
 
 jobs:
   install_aws_cli:
@@ -40,16 +41,28 @@ jobs:
           region: AWS_US_EAST_1_REGION
           remote-docker-layer-caching: true
           repo: node_with_sam_cli
-  hello:
+  build_api:
     docker:
       - image: 709967797311.dkr.ecr.us-east-1.amazonaws.com/node_with_sam_cli:latest
     steps:
       - checkout
       - attach_workspace:
           at: ~/
+      - restore_cache:
+          keys:
+            - v1-npm-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
-          command: echo hello world
-  
+          command: |
+            npm install
+      - save_cache:
+          key: v1-npm-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - aws-sam/build
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.aws-sam
 
 workflows:
   preparation:
@@ -75,7 +88,7 @@ workflows:
     jobs:
       - install_aws_cli:
           context: aws
-      - hello:
+      - build_api:
           context: aws
           requires:
             - install_aws_cli
