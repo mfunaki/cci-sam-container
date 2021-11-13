@@ -11,15 +11,6 @@ orbs:
   aws-sam: circleci/aws-sam-serverless@3.1.0
 
 jobs:
-  install_aws_cli:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          profile-name: default
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .aws/*
   create_repo:
     executor: aws-ecr/default
     steps:
@@ -27,20 +18,6 @@ jobs:
           at: ~/
       - aws-ecr/create-repo:
           repo: money_exchange
-  prepare_work_image:
-    executor: aws-ecr/default
-    steps:
-      - attach_workspace:
-          at: ~/
-      - aws-ecr/build-and-push-image:
-          account-url: MY_US_EAST_1_ECR
-          attach-workspace: true
-          create-repo: true
-          docker-login: true
-          path: ./.circleci
-          region: AWS_US_EAST_1_REGION
-          remote-docker-layer-caching: true
-          repo: node_with_sam_cli
   build_api:
     docker:
       - image: cimg/python:3.10-node
@@ -76,31 +53,13 @@ jobs:
             cd ./money-exchange
             npm install
             mkdir reports
-      - run:
-          command: npx nyc --silent npx mocha ./test/*.test.js --reporter mocha-junit-reporter
+            npx nyc --silent npx mocha ./test/*.test.js --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./reports/mocha/test-results.xml
       - store_test_results:
-          path: ./reports        
+          path: ./money-exchange/reports        
 
 workflows:
-  preparation:
-    when: << pipeline.parameters.update-work-image >>
-    jobs:
-      - install_aws_cli:
-          context: aws
-      - prepare_work_image:
-          context:
-            - aws
-            - docker
-          requires:
-            - install_aws_cli
-      - create_repo:
-          context: 
-            - aws
-            - docker
-          requires:
-            - install_aws_cli
   main:
     when:
       not: << pipeline.parameters.update-work-image >>
