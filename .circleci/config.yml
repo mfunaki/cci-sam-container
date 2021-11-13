@@ -53,9 +53,9 @@ jobs:
             cd ./money-exchange
             npm install
             mkdir reports
-            npx nyc --silent npx mocha ./tests/*.test.js --reporter mocha-junit-reporter
+            npx nyc npx mocha ./tests/*.test.js --reporter mocha-junit-reporter
           environment:
-            MOCHA_FILE: ./money-exchange/reports/mocha/test-results.xml
+            MOCHA_FILE: ./reports/mocha/test-results.xml
       - store_test_results:
           path: ./money-exchange/reports        
 
