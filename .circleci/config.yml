@@ -50,14 +50,14 @@ jobs:
       - aws-sam/install
       - restore_cache:
           keys:
-            - v1-npm-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-npm-{{ .Branch }}-{{ checksum "./money-exchange/package-lock.json" }}
       - run:
           command: |
             npm install
       - save_cache:
-          key: v1-npm-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: v1-npm-{{ .Branch }}-{{ checksum "./money-exchange/package-lock.json" }}
           paths:
-            - node_modules
+            - ./money-exchange/node_modules
       - aws-sam/build:
           template: template.yaml
           use-container: true
