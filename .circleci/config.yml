@@ -92,4 +92,6 @@ workflows:
       not: << pipeline.parameters.update-work-image >>
     jobs:
       - build_api:
-          context: aws, docker
+          context: 
+            - aws
+            - docker
