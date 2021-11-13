@@ -42,7 +42,8 @@ jobs:
           remote-docker-layer-caching: true
           repo: node_with_sam_cli
   build_api:
-    executor: aws-sam/default
+    docker:
+      - image: cimg/python:3.10-node
     steps:
       - checkout
       - attach_workspace:
