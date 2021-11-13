@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  update-work-image:
+    type: boolean
+    default: false
+
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
   aws-ecr: circleci/aws-ecr@7.2.0
@@ -44,20 +49,27 @@ jobs:
           at: ~/
       - run:
           command: echo hello world
+  
 
 workflows:
+  version: 2
+  preparation:
+    when: << pipeline.parameters.update-work-image >>
+    jobs:
+      - install_aws_cli:
+          context: aws
+      - prepare_work_image:
+          context:
+            - aws
+            - docker
+          requires:
+            - install_aws_cli
   main:
     jobs:
       - install_aws_cli:
           context: aws
       - create_repo:
           context: 
-            - aws
-            - docker
-          requires:
-            - install_aws_cli
-      - prepare_work_image:
-          context:
             - aws
             - docker
           requires:
