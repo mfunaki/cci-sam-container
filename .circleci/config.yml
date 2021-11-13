@@ -63,6 +63,25 @@ jobs:
           paths:
             - project/.aws-sam
             - project/money-exchange/node_modules
+  test_api:
+    docker:
+      - image: cimg/python:3.10-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - aws-sam/install
+      - run:
+          command: |
+            cd ./money-exchange
+            npm install
+            mkdir reports
+      - run:
+          command: npx nyc --silent npx mocha ./test/*.test.js --reporter mocha-junit-reporter
+          environment:
+            MOCHA_FILE: ./reports/mocha/test-results.xml
+      - store_test_results:
+          path: ./reports        
 
 workflows:
   preparation:
@@ -87,6 +106,8 @@ workflows:
       not: << pipeline.parameters.update-work-image >>
     jobs:
       - build_api:
-          context: 
-            - aws
-            - docker
+          context: aws
+      - test_api:
+          context: aws
+          requires:
+            - build_api
