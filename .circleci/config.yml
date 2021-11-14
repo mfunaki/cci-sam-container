@@ -68,7 +68,8 @@ jobs:
       - aws-sam/install
       - aws-sam/deploy:
           debug: true
-          template: samconfig.toml
+          stack-name: cci-money-exchange
+          s3-bucket: cci-money-exchange
 
 workflows:
   main:
