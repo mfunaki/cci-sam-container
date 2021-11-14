@@ -62,9 +62,8 @@ jobs:
       - aws-ecr/create-repo:
           repo: cci-money-exchange
       - aws-sam/deploy:
-          debug: true
           stack-name: cci-money-exchange
-          template: samconfig.toml
+          template: template.yaml
 
 workflows:
   main:
