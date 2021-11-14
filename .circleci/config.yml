@@ -58,9 +58,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
+      - aws-sam/install
       - aws-ecr/create-repo:
           repo: cci-money-exchange
-      - aws-sam/install
       - aws-sam/deploy:
           stack-name: moneyexchangefunction
           template: template.yaml
