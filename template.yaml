@@ -21,7 +21,7 @@ Resources:
             Path: /api
             Method: get
     Metadata:
-      DockerTag: nodejs14.x-v1
+      DockerTag: latest
       DockerContext: ./money-exchange
       Dockerfile: Dockerfile
 
