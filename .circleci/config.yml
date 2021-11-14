@@ -58,6 +58,17 @@ jobs:
             MOCHA_FILE: ./reports/mocha/test-results.xml
       - store_test_results:
           path: ./money-exchange/reports        
+  deploy_api:
+    docker:
+      - image: cimg/python:3.10-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - aws-sam/install
+      - aws-sam/deploy:
+          stack-name: cci-money-exchange
+          template: samconfig.toml
 
 workflows:
   main:
@@ -70,3 +81,7 @@ workflows:
           context: aws
           requires:
             - build_api
+      - deploy_api:
+          context: aws
+          requires:
+            - test_api
