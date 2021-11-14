@@ -20,7 +20,7 @@ Resources:
           Properties:
             Path: /api
             Method: get
-      ImageUri: 709967797311.dkr.ecr.ap-northeast-1.amazonaws.com/cci-money-exchange/moneyexchangefunction
+      ImageUri: 709967797311.dkr.ecr.ap-northeast-1.amazonaws.com/sam-repo/
     Metadata:
       DockerTag: latest
       DockerContext: ./money-exchange
