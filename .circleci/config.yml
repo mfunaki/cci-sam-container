@@ -23,6 +23,8 @@ jobs:
           command: |
             cd ./money-exchange
             npm install
+      - aws-ecr/create-repo:
+          repo: cci-money-exchange
       - setup_remote_docker:
           docker_layer_caching: true
       - aws-sam/build:
@@ -59,10 +61,8 @@ jobs:
       - attach_workspace:
           at: ~/
       - aws-sam/install
-      - aws-ecr/create-repo:
-          repo: cci-money-exchange
       - aws-sam/deploy:
-          stack-name: moneyexchangefunction
+          stack-name: cci-money-exchange
           template: template.yaml
 
 workflows:
