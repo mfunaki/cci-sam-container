@@ -24,6 +24,7 @@ Resources:
       DockerTag: latest
       DockerContext: ./money-exchange
       Dockerfile: Dockerfile
+      DummyField: dummy
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
