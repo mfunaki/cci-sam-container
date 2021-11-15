@@ -58,6 +58,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
+      - setup_remote_docker:
+          docker_layer_caching: true
       - aws-sam/install
       - aws-ecr/create-repo:
           repo: sam-repos/moneyexchangefunction
