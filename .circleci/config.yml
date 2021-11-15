@@ -62,9 +62,9 @@ jobs:
       - aws-ecr/create-repo:
           repo: sam-repos/moneyexchangefunction
       - aws-sam/deploy:
-          debug: true
           stack-name: cci-money-exchange
           template: template.yaml
+          no-fail-on-empty-changeset: true
 
 workflows:
   main:
