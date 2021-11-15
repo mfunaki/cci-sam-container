@@ -20,11 +20,11 @@ Resources:
           Properties:
             Path: /api
             Method: get
+      ImageUri: 709967797311.dkr.ecr.ap-northeast-1.amazonaws.com/sam-repos/moneyexchangefunction:moneyexchangefunction-7cdf7006ec1e-latest
     Metadata:
       DockerTag: latest
       DockerContext: ./money-exchange
       Dockerfile: Dockerfile
-      DummyField: dummy
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
