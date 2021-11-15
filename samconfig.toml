@@ -5,7 +5,7 @@ version = 0.1
 
 [default.deploy.parameters]
 stack_name = "cci-money-exchange"
-s3_bucket = "cci-money-exchange-bucket"
+s3_bucket = "cci-sam-bucket"
 s3_prefix = "cci-money-exchange"
 region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
