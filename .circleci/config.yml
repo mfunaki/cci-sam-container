@@ -60,7 +60,7 @@ jobs:
           at: ~/
       - aws-sam/install
       - aws-ecr/create-repo:
-          repo: sam-repo
+          repo: sam-repos/cci-money-exchange
       - aws-sam/deploy:
           debug: true
           stack-name: cci-money-exchange
