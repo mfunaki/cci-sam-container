@@ -1,2 +1,2 @@
 # cci-sam-container
-https://dev.classmethod.jp/articles/lambda-container-pkgfmt-with-sam-cli/
+[![CircleCI](https://circleci.com/gh/mfunaki/cci-sam-container/tree/master.svg?style=svg)](https://circleci.com/gh/mfunaki/cci-sam-container/tree/master)
